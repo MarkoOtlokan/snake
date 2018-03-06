@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <title>igraj</title>
+    <link rel="stylesheet" type="text/css" href="zmijica.css">
+  </head>
+  <body onkeypress="startuj(event)">
+    <script src="myjs.js"></script>
+    <center>
+
+      <div class="unos">
+        <p>
+          unesi velicinu table
+        </p>
+        <input id="broj-polja" type="number" placeholder="3-50" min="3" max="50" />
+        <p>
+          unesi zeljenu brzinu 1-20
+        </p>
+        <input id="brzina" type="number" placeholder="1-20" min="1" max="20" />
+        <button type="button" id="dugme-pocni"onclick="zapocni_igru()">zapocni igru</button>
+        <p id="score">
+          Trenutni skor: 0;
+        </p>
+      </div>
+
+      <div class="tabl" id="tabla">
+
+      </div>
+
+    </center>
+
+  </body>
+</html>
