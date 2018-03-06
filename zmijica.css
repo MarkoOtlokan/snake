@@ -1,0 +1,27 @@
+body{
+  font-size: 0;
+}
+
+div.pocni{
+  float: left;
+  width: 100%;
+  border: 2px solid white;
+  display: inline-block;
+}
+p{
+  font-size: 15px;
+}
+div.novo{
+  display: inline-block;
+  background-color: black;
+  height: 30px;
+  width: 30px;
+  border: 0px solid white;
+}
+div.tabl{
+  width: 100%;
+
+}
+p.izgubio{
+  font-size: 40px;
+}
