@@ -7,32 +7,33 @@
   </head>
   <body onkeypress="startuj(event)">
     <script src="myjs.js"></script>
-    <center>
+    <div class="veliki-tata">
+
 
       <div class="unos">
         <p>
-          unesi velicinu table
+          size of board 3-50
         </p>
         <input id="broj-polja" type="number" placeholder="3-50" min="3" max="50" />
         <p>
-          unesi zeljenu brzinu 1-20
+          speed 1-20
         </p>
         <input id="brzina" type="number" placeholder="1-20" min="1" max="20" />
-        <button type="button" id="dugme-pocni"onclick="zapocni_igru()">zapocni igru</button>
+        <button type="button" id="dugme-pocni"onclick="zapocni_igru()">start game</button>
         <p>
           Controls: w,a,s,d<br />
           after a while it becomes more difficult
         </p>
         <p id="score">
-          Trenutni skor: 0;
+          score : 0;
         </p>
       </div>
 
       <div class="tabl" id="tabla">
 
       </div>
+    </div>
 
-    </center>
 
   </body>
 </html>
