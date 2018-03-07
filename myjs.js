@@ -7,14 +7,22 @@ var putanja;
 var prethodna="m";
 var loop;
 var speed;
+var unesena_brzina;
+var br=1;
+var a=true;
 
 function zapocni_igru(){
+  if((document.getElementById('broj-polja').value == "") || (document.getElementById('brzina').value == "")){
+    alert("fill all the fields");
+    return;
+  }
+  a=false;
   BrojPolja=document.getElementById('broj-polja').value;
   document.getElementById("dugme-pocni").disabled = true;
   if(document.getElementById("izgubio") != null)
     document.getElementById("izgubio").remove();
-  speed=document.getElementById('brzina').value;
-  speed=320-15*speed;
+  unesena_brzina=document.getElementById('brzina').value;
+  speed=320-15*unesena_brzina;
   crtaj_polja();
   var zmija_polje=[];
   zmija_polje=pocetna_pozicija(BrojPolja);
@@ -27,11 +35,15 @@ function zapocni_igru(){
 }
 function crtaj_polja(){
   var brojac=0;
+  var velicina=Math.floor(800/BrojPolja);
+  velicina--;
   for(i=0; i < BrojPolja; i++){
       for(j=0; j<BrojPolja; j++){
         var para = document.createElement("div");
         para.className="novo";
         para.id=i+"|"+j;
+        para.width=velicina;
+        para.height=velicina;
         document.getElementById("tabla").appendChild(para);
         console.log(i);
         brojac++;
@@ -40,10 +52,16 @@ function crtaj_polja(){
       para.id="razmak-linija";
       document.getElementById("tabla").appendChild(para);
     }
-
+  var list = document.getElementsByClassName("novo");
+  for (index = 0; index < list.length; ++index) {
+    list[index].setAttribute("style","width:"+velicina+"px; height: "+velicina+"px");
+  }
 }
+
 function startuj(e){
 //  console.log("rucni unos "+e.which);
+  if(a == true)
+    return;
   putanja=String.fromCharCode(e.which);
   if((putanja == 'w' && prethodna == 's') || (putanja == 's' && prethodna == 'w') || (putanja == 'a' && prethodna == 'd') || (putanja == 'd' && prethodna == 'a')){
     console.log("usao");
@@ -58,7 +76,7 @@ function startuj(e){
 
 function igraj(){
   var tmp=[zmija[zmija.length-1][0],zmija[zmija.length-1][1]];
-  document.getElementById(zmija[zmija.length-1][0]+"|"+zmija[zmija.length-1][1]).style.backgroundColor="black";
+  document.getElementById(zmija[zmija.length-1][0]+"|"+zmija[zmija.length-1][1]).style.backgroundColor='rgba(0, 0, 0, 0.7)';
   for(i=zmija.length-1;i >= 1; i--){
     zmija[i][0] = zmija[i-1][0];
     zmija[i][1] = zmija[i-1][1];
@@ -91,13 +109,16 @@ function igraj(){
     var PoljeZmije=zmija[i][0]+"|"+zmija[i][1];
     if(PoljeZmije == NovaPozicija){
       izgubio();
+      return;
     }
   }
   if(zmija[0][0] == hrana[0] && zmija[0][1] == hrana[1]){
     //alert("pojeo si");
+    br++;
+    speed=(speed > 50)? speed-2 : speed;
     zmija.push(tmp);
-    score++;
-    document.getElementById("score").innerHTML="Trenutni skor : "+score;
+    score+=unesena_brzina*br;
+    document.getElementById("score").innerHTML="score : "+score;
     hrana=generisi_hrenu();
     crtaj_hranu(hrana);
   }
@@ -147,10 +168,12 @@ function izgubio(){
   var para = document.createElement("p");
   para.id="izgubio";
   para.className="izgubio";
-  var node = document.createTextNode("izgubio, tvoj score je "+score);
+  var node = document.createTextNode("you lost, your score is  "+score);
   para.appendChild(node);
   document.getElementById("tabla").appendChild(para);
   zmija=[];
   score=0;
   putanja='w';
+  a=true;
+  return;
 }
